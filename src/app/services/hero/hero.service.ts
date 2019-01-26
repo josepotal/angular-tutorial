@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
-import { MessageService } from './message.service';
+import { Hero } from '../../models/heroes';
+import { HEROES } from '../../mock-heroes';
+import { MessageService } from '../messages/message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,12 +21,12 @@ export class HeroService {
     private messageService: MessageService,
   ) {}
 
+  private heroesUrl = 'api/heroes'; // URL to web api
+
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
-
-  private heroesUrl = 'api/heroes'; // URL to web api
 
   /**
    * Handle Http operation that failed.
@@ -49,10 +49,7 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl).pipe(
-      tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError('getHeroes', [])),
-    );
+    return this.http.get<Hero[]>(this.heroesUrl);
   }
 
   /** GET hero by id. Will 404 if id not found */
