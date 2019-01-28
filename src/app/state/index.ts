@@ -1,29 +1,18 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 
-import * as fromHeroes from './heroes';
+import * as fromRouter from '@ngrx/router-store';
+import * as fromTodos from './todos';
+import * as fromTodo from './todo';
+import { RouterStateUrl } from './router';
 
 export interface AppState {
-  heroes: fromHeroes.HeroesState;
+  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+  todos: fromTodos.TodosState;
+  todo: fromTodo.TodoState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  heroes: fromHeroes.heroesReducer,
+  routerReducer: fromRouter.routerReducer,
+  todos: fromTodos.todosReducer,
+  todo: fromTodo.todoReducer,
 };
-
-// Selectors for heroes
-export const getHeroesState = (state: AppState) => state.heroes;
-
-export const getHeroes = createSelector(
-  getHeroesState,
-  fromHeroes.getHeroes,
-);
-
-export const getHeroesFetching = createSelector(
-  getHeroesState,
-  fromHeroes.getHeroesFetching,
-);
-
-export const getHeroesError = createSelector(
-  getHeroesState,
-  fromHeroes.getHeroesApiError,
-);

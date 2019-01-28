@@ -1,14 +1,12 @@
-<h3>Top Heroes</h3>
+<h3>Top Todos</h3>
 <div class="grid grid-pad">
   <a
-    *ngFor="let hero of heroes"
+    *ngFor="let todo of (todos$ | async)"
     class="col-1-4"
-    routerLink="/detail/{{ hero.id }}"
+    routerLink="/detail/{{ todo.id }}"
   >
-    <div class="module hero">
-      <h4>{{ hero.name }}</h4>
+    <div class="module todo">
+      <h4>{{ todo.title }}</h4>
     </div>
   </a>
 </div>
-
-<app-hero-search></app-hero-search>

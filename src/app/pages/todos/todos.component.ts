@@ -8,11 +8,11 @@ import { AppState } from '../../state';
 import * as fromTodosStore from '../../state/todos';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class TodosComponent implements OnInit {
   todos$: Observable<Todo[]>;
 
   constructor(private store: Store<AppState>) {}
@@ -21,4 +21,9 @@ export class DashboardComponent implements OnInit {
     this.todos$ = this.store.select<any>(fromTodosStore.getTodosSelector);
     this.store.dispatch(new fromTodosStore.FetchTodos());
   }
+
+  // delete(todo: Todo): void {
+  //   this.todos = this.todos.filter(h => h !== todo);
+  //   this.todoService.deleteTodo(todo).subscribe();
+  // }
 }
